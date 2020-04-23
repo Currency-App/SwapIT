@@ -83,12 +83,17 @@ https://xd.adobe.com/view/ca76cdc7-bab4-4807-488e-87034eac68da-bc47/
    | Property      | Type     | Description |
    | ------------- | -------- | ------------|
    | objectId      | String   | user’s username to identifies their account |
-   | message        | Pointer to User| image author |
-   | image         | File     | image that user posts |
-   | caption       | String   | image caption by author |
-   | commentsCount | Number   | number of comments that has been posted to an image |
-   | likesCount    | Number   | number of likes for the post |
-   | createdAt     | DateTime | date when post is created (default field) |
+   | message        | String | message that the user sends |
+   | timeSent         | DateTime    | time a message was sent |
+#### Finding exchanges
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | user’s username |
+   | amount      | Number | amount of money that the user wants to exchange |
+   | currencyStart      | String    | currency that user has |
+   | currencyEnd     | String    | currency that user would like to exchange to |
+   | location      | Location    | User's location to find matches nearby |
+   | timeExchange      | DateTime    |time exchange request was made |
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
