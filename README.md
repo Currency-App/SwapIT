@@ -108,7 +108,7 @@ https://xd.adobe.com/view/ca76cdc7-bab4-4807-488e-87034eac68da-bc47/
   * (Create/POST) Create a new message object
 * Profile Screen
   * (Read/GET) Query logged in user object
-  ```swift
+    ```swift
          let query = PFQuery(className:"Post")
          query.whereKey("author", equalTo: currentUser)
          query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
