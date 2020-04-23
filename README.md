@@ -77,9 +77,18 @@ https://xd.adobe.com/view/ca76cdc7-bab4-4807-488e-87034eac68da-bc47/
 https://xd.adobe.com/view/ca76cdc7-bab4-4807-488e-87034eac68da-bc47/
 
 ## Schema 
-[This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+#### Sending Messages
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | user’s username to identifies their account |
+   | message        | Pointer to User| image author |
+   | image         | File     | image that user posts |
+   | caption       | String   | image caption by author |
+   | commentsCount | Number   | number of comments that has been posted to an image |
+   | likesCount    | Number   | number of likes for the post |
+   | createdAt     | DateTime | date when post is created (default field) |
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
