@@ -94,7 +94,40 @@ https://xd.adobe.com/view/ca76cdc7-bab4-4807-488e-87034eac68da-bc47/
    | currencyEnd     | String    | currency that user would like to exchange to |
    | location      | Location    | User's location to find matches nearby |
    | timeExchange      | DateTime    |time exchange request was made |
+#### Currency rates
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | base      | String   | the base currency type |
+   | date        | Date | the date of the rate |
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+#### List of network requests by screen
+* Home Feed Screen
+  * (Read/GET) Query the current currency rate from the network
+* Create Message Screen
+  * (Create/POST) Create a new message object
+* Profile Screen
+  * (Read/GET) Query logged in user object
+  ```swift
+         let query = PFQuery(className:"Post")
+         query.whereKey("author", equalTo: currentUser)
+         query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
+            if let error = error { 
+               print(error.localizedDescription)
+            } else if let posts = posts {
+               print("Successfully retrieved \(posts.count) posts.")
+           // TODO: Do something with posts...
+            }
+         }
+         ```
+  * (Update/PUT) Update user profile image
+* SwapIt Screen
+  * (Read/GET) Query locations of swappers through the map function
+  * (Read/GET) Query all available exchanges where user are swappers
+#### OPTIONAL: List endpoints if using existing API such as Yelp
+##### An API of currency rate
+- Base URL = https://exchangeratesapi.io
+HTTP Verb | Endpoint | Description
+   ----------|----------|------------
+    `GET`    | /latest | latest exchange rate
+    `GET`    | /latest?Base=USA | Base as USD exchange rate
