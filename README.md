@@ -1,7 +1,4 @@
-Group Project - README Template
-===
-
-# SwapIT
+# SwapIt
 
 ## Table of Contents
 1. [Overview](#Overview)
