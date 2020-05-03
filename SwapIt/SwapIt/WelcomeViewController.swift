@@ -18,7 +18,7 @@ class WelcomeViewController: UIViewController {
     
 
     @IBAction func GoToHome(_ sender: Any) {
-         
+        self.performSegue(withIdentifier: "homeSegue", sender: nil)
     }
     /*
     // MARK: - Navigation

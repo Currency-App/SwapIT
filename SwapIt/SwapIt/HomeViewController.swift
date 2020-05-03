@@ -11,7 +11,7 @@ import UIKit
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var currency:[String] = []
-    var values: [String] = []
+    var values: [Double] = []
     @IBOutlet weak var tableview: UITableView!
     
     override func viewDidLoad() {
@@ -19,10 +19,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableview.delegate = self
         tableview.dataSource = self
         
-        let url = URL(string: "http://data.fixer.io/api/latest?access_key=950d9516c67b78c187ebee7055841efc")
+        let url = URL(string: "http://data.fixer.io/api/latest?access_key=950d9516c67b78c187ebee7055841efc")!
         
-        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            if error != nil {
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
+        let session = URLSession.init(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main
+        )
+        let task = session.dataTask(with: request) { (data, response, error) in
+            
+        if error != nil {
                 print("error")
             }
             else {
@@ -43,6 +47,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                         
                     }
                 }
+                self.tableview.reloadData()
             }
         }
         task.resume()
@@ -57,7 +62,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let value = values[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "CurrencyCell") as! CurrencyCell
         cell.currencyLabel.text = currencies
-        cell.valuesLabel.text = value
+        cell.valuesLabel.text = String(value)
         return cell
     }
     
