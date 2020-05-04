@@ -10,8 +10,6 @@ import UIKit
 
 class SwappersViewController: UIViewController {
 
-    @IBOutlet weak var swappersTableView: UITableView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

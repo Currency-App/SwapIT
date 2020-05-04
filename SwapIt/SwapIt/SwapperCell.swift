@@ -10,11 +10,6 @@ import UIKit
 
 class SwapperCell: UITableViewCell {
 
-    @IBOutlet weak var nameLabel: UILabel!
-    
-    @IBOutlet weak var emailLabel: UILabel!
-    
-    @IBOutlet weak var profileImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
