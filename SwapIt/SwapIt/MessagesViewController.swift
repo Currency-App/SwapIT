@@ -7,15 +7,22 @@
 //
 
 import UIKit
+import Firebase
 
 class MessagesViewController: UIViewController {
 
-    // My text Field
+// My text Field
            @IBOutlet weak var textField: UITextField
     
+// keyboard behavior: below
     override func viewDidLoad() {
         super.viewDidLoad()
         self.textField.delegate = self
+        
+        // BELOW IN STRING -> NAME OF A 'NEW MESSAGE ICON' PNG
+        let image = UIImage(named: <#T##String#>)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .Plain, target: self, action: #selector(handleNewMessage))
+        // function is below under firebase attempt 1
     }
     
     override func didReceiveMemoryWarning() {
@@ -32,28 +39,34 @@ class MessagesViewController: UIViewController {
         textField.resignFirstResponder()
         return(true)
 }
+    // fin keyboard behavior
+    
+    
+// firebase chat attempt 1: below
+   
+    // here is the button for the new message icon
+    func handleNewMessage(){
+        let newMessageController = NewMessageController()
+        let navController = UINavigationController(rootViewController: newMessageController)
         
+        presentViewController(navController, animated: true, completion: nil)
+    }
+    
+    // to title page with users name
+    let uid = FIRAuth.auth()?.currentUser?.uid
+    FIRDatabase.datase().reference().child("users").child(uid!).observeSingleEventOfType(.Value, withBlock: {
+    (snapshot) in
+    
+    if let dictionary = snapshot.value as? [String: AnyObject]{
+    self.navigationItem.title = dictionary["firstName"]
+    }
+    //print(snapshot)
+    }, withCancelBlock: nil)
+    
+    
+   
+    // fin firebase attempt 1
 }
 
         
     
-/*
-     // Start of parse chat lab example code*******
-            // Use the class name: Message (this is case sensitive).
-            let chatMessage = PFObject(className: "Message")
-            
-            // Store the text of the text field in a key called text. (Provide a default empty string so message text is never nil)
-            chatMessage["text"] = chatMessageField.text ?? ""
-           
-            // Call saveInBackground(block:) and print when the message successfully saves or any errors.
-            chatMessage.saveInBackground { (success, error) in
-               if success {
-                  print("The message was saved!")
-               } else if let error = error {
-                  print("Problem saving message: \(error.localizedDescription)")
-               }
-            }
-            // fin, parse chat lab example code..... *******
-     */
-    
-
