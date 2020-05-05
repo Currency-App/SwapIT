@@ -10,7 +10,8 @@ import UIKit
 
 class User: NSObject {
 
-    var name: String?
+    var firstName: String?
+    var lastName: String?
     var email: String?
     
 }

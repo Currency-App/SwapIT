@@ -7,17 +7,35 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class newMessagesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
     @IBOutlet var tableView: UITableView!
+    var users = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
+        fetchUser()
+    }
+    
+    func fetchUser() {
+        Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let user = User()
+                user.firstName = dictionary["firstName"] as? String
+                user.lastName = dictionary["lastName"] as? String
+                user.email = dictionary["email"] as? String
+                self.users.append(user)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }, withCancel: nil)
     }
     
     @IBAction func Cancel(_ sender: Any) {
@@ -25,14 +43,15 @@ class newMessagesViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return users.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "newMessageCell") as! newMessageCell
-        
-        cell.textLabel?.text = "dummy"
+        let user = users[indexPath.row]
+        cell.firstNameLabel.text = user.firstName
+       // cell.emailLabel.text = user.email
         return cell
     }
     /*

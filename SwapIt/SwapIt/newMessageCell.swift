@@ -10,6 +10,9 @@ import UIKit
 
 class newMessageCell: UITableViewCell {
 
+    @IBOutlet weak var firstNameLabel: UILabel!
+    
+    @IBOutlet weak var emailLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
