@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gg5-xJ-Euu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qtf-8z-lR5">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -247,11 +247,51 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="onE-Fg-jue"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Z7L-9m-P2Y"/>
+                    <navigationItem key="navigationItem" id="Z7L-9m-P2Y">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="square.and.pencil" catalog="system" id="Chh-md-Tvf">
+                            <connections>
+                                <segue destination="Qtf-8z-lR5" kind="presentation" identifier="newMessage" modalPresentationStyle="fullScreen" id="Reu-iH-FF4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="476-Bw-Alb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6565.6000000000004" y="97.536945812807886"/>
+        </scene>
+        <!--New Messages View Controller-->
+        <scene sceneID="QyV-PL-XAl">
+            <objects>
+                <viewController id="Uov-Ym-vdZ" customClass="newMessagesViewController" customModule="SwapIt" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="olC-Tx-1ae">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newMessageCell" rowHeight="59" id="w7i-bJ-IhS" customClass="newMessageCell" customModule="SwapIt" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="59"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="w7i-bJ-IhS" id="tiN-oN-FJA">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="EIW-A8-uae">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="NCy-eO-je4">
+                            <connections>
+                                <action selector="Cancel:" destination="Uov-Ym-vdZ" id="NUR-Oj-jSR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="olC-Tx-1ae" id="Xqm-yQ-zgV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bV8-mF-Xum" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8447.2000000000007" y="97.536945812807886"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="KAd-Pw-vZm">
@@ -709,14 +749,33 @@
             </objects>
             <point key="canvasLocation" x="7554" y="859"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="MEL-oT-KHa">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qtf-8z-lR5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="buP-ti-UwZ">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Uov-Ym-vdZ" kind="relationship" relationship="rootViewController" id="Way-HU-AcZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j3L-HL-MxR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7504.8000000000002" y="97.536945812807886"/>
+        </scene>
     </scenes>
-    <resources>
-        <image name="dollarsign.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="envelope.fill" catalog="system" width="64" height="46"/>
-        <image name="person.circle.fill" catalog="system" width="64" height="60"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="AQ1-yA-yja"/>
         <segue reference="Asp-TM-oiJ"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <image name="dollarsign.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="envelope.fill" catalog="system" width="128" height="93"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="square.and.pencil" catalog="system" width="128" height="118"/>
+    </resources>
 </document>
