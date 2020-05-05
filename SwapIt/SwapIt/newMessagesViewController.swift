@@ -19,7 +19,8 @@ class newMessagesViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        // Do any additional setup after loading the view.
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = 150
         fetchUser()
     }
     
@@ -51,7 +52,7 @@ class newMessagesViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "newMessageCell") as! newMessageCell
         let user = users[indexPath.row]
         cell.firstNameLabel.text = user.firstName
-       // cell.emailLabel.text = user.email
+        cell.emailLabel.text = user.email
         return cell
     }
     /*
