@@ -9,8 +9,7 @@ target 'SwapIt' do
 	pod 'Firebase/Analytics'
   pod 'Firebase/Auth’
   pod 'Firebase/Core'
-  pod 'Firebase/Firestore'
-  pod 'FirebaseFirestoreSwift'
+  pod 'Firebase/Database'
   pod "AlamofireImage"
 
   target 'SwapItTests' do

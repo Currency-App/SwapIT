@@ -8,8 +8,7 @@
 
 import UIKit
 import FirebaseAuth
-import Firebase
-import FirebaseFirestore
+import FirebaseDatabase
 
 class SignUpViewController: UIViewController {
     @IBOutlet weak var firstName: UITextField!
@@ -40,11 +39,16 @@ class SignUpViewController: UIViewController {
         else{
             Auth.auth().createUser(withEmail: Email, password: Password) { (result, error) in
                 if error == nil {
-                    let db = Firestore.firestore()
-                    db.collection("users").addDocument(data: ["firstName" : first_name, "lastName": last_name, "email": Email, "uid": result!.user.uid]) { (error) in
+                 var ref: DatabaseReference!
+                 ref = Database.database().reference()
+                let userReferences = ref.child("users").child(result!.user.uid)
+                    let values = ["firstName": first_name, "lastName": last_name, "email": Email]
+                    userReferences.updateChildValues(values) { (error, ref) in
                         if error != nil {
-                                print("error saving data")
-                        }
+                                         print("error saving data")
+                                 }
+                    }
+         
                     }
                     self.performSegue(withIdentifier: "signUpSuccess", sender: self)
 
@@ -53,7 +57,7 @@ class SignUpViewController: UIViewController {
         }
     
               
-    }
+}
     
     
     /*
@@ -66,4 +70,4 @@ class SignUpViewController: UIViewController {
     }
     */
 
-}
+
