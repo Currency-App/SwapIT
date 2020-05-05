@@ -10,13 +10,20 @@ import UIKit
 
 class EditProfileViewController: UIViewController {
 
+    @IBOutlet weak var profileImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func changePhoto(_ sender: Any) {
+    }
+    
+    
+    @IBAction func saveProfile(_ sender: Any) {
+    }
+    
     /*
     // MARK: - Navigation
 

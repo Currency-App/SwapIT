@@ -385,11 +385,18 @@
                         <viewLayoutGuide key="safeArea" id="cPS-TR-hWG"/>
                     </view>
                     <navigationItem key="navigationItem" id="7Iy-DE-bNl">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="gch-JU-sN3"/>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="gch-JU-sN3">
+                            <connections>
+                                <action selector="editButton:" destination="FuP-db-6fh" id="bjv-Ed-kwn"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="DesiredLabel" destination="wnl-nJ-F1x" id="2gl-3J-6nd"/>
+                        <outlet property="currentLabel" destination="TXO-kQ-DuV" id="Bnf-jv-23O"/>
                         <outlet property="profileImage" destination="exO-V7-sUT" id="diu-cW-B9F"/>
+                        <outlet property="usernameLabel" destination="nBN-zj-s2B" id="2lp-1h-JRV"/>
                         <segue destination="JqA-Xh-Xwd" kind="show" id="hwP-Hr-DJ6"/>
                     </connections>
                 </viewController>
@@ -759,12 +766,18 @@
                                 <rect key="frame" x="110" y="369" width="154" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Change Profile Picture"/>
+                                <connections>
+                                    <action selector="changePhoto:" destination="JqA-Xh-Xwd" eventType="touchUpInside" id="TFW-zf-sA4"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMD-Kv-nB0">
                                 <rect key="frame" x="166" y="688" width="43" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveProfile:" destination="JqA-Xh-Xwd" eventType="touchUpInside" id="fby-GL-L3c"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -793,7 +806,7 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="profileImage" destination="M2n-Nx-5HJ" id="eOO-Tl-JTI"/>
+                        <outlet property="profileImage" destination="M2n-Nx-5HJ" id="8Dk-NR-ATy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bfk-IF-2OU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
