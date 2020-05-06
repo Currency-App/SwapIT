@@ -14,6 +14,7 @@ class newMessagesViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet var tableView: UITableView!
     var users = [User]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,7 @@ class newMessagesViewController: UIViewController, UITableViewDelegate, UITableV
         Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let user = User()
+                user.id = snapshot.key
                 user.firstName = dictionary["firstName"] as? String
                 user.lastName = dictionary["lastName"] as? String
                 user.email = dictionary["email"] as? String
@@ -52,17 +54,19 @@ class newMessagesViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "newMessageCell") as! newMessageCell
         let user = users[indexPath.row]
         cell.firstNameLabel.text = user.firstName
+        cell.lastNameLabel.text = user.lastName
         cell.emailLabel.text = user.email
         return cell
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    var messagesController: MessagesViewController?
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let user = users[indexPath.row]
+        self.messagesController?.getUser(user: user)
+        self.performSegue(withIdentifier: "chatView", sender: nil)
+            
     }
-    */
+
 
 }
