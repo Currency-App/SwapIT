@@ -11,6 +11,9 @@ target 'SwapIt' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod "AlamofireImage"
+  pod 'Firebase/Firestore'
+ pod 'FirebaseFirestoreSwift'
+ 
 
   target 'SwapItTests' do
     inherit! :search_paths
