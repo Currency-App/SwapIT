@@ -12,10 +12,18 @@ class MessagesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func newMessagesAction(_ sender: Any) {
+        self.performSegue(withIdentifier: "newMessage", sender: nil)
+    }
+
+    func getUser(user: User) {
+        let chatViewController = ChatViewController()
+        chatViewController.user = user
+        
+    }
 
     /*
     // MARK: - Navigation
