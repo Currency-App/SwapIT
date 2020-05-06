@@ -11,6 +11,10 @@ import UIKit
 class ProfileViewController: UIViewController {
 
     @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var currentLabel: UILabel!
+    @IBOutlet weak var desiredLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,7 +23,9 @@ class ProfileViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func editButton(_ sender: Any) {
+    }
+    
     /*
     // MARK: - Navigation
 

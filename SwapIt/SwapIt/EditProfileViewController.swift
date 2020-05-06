@@ -7,16 +7,102 @@
 //
 
 import UIKit
+import AlamofireImage
 
-class EditProfileViewController: UIViewController {
 
+class EditProfileViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate{
+    
+
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var currentText: UITextField!
+    @IBOutlet weak var desiredText: UITextField!
+    var selectedCurrency: String?
+    var currencyType = ["USD", "EUR"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        createPickerView()
+        dismissPickerView()
 
         // Do any additional setup after loading the view.
     }
     
-
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return currencyType.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return currencyType[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedCurrency = currencyType[row]
+        currentText.text = selectedCurrency
+        desiredText.text = selectedCurrency
+        
+    }
+    
+    func createPickerView()
+    {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        
+        currentText.inputView = pickerView
+        desiredText.inputView = pickerView
+        
+        
+    }
+    
+    func dismissPickerView()
+    {
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.dismissKeyboard))
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        currentText.inputAccessoryView = toolBar
+        desiredText.inputAccessoryView = toolBar
+    }
+    
+    @objc func dismissKeyboard()
+    {
+        view.endEditing(true)
+    }
+    
+    
+    @IBAction func changePhoto(_ sender: Any) {
+        let picker  = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        if UIImagePickerController.isSourceTypeAvailable(.camera)
+        {
+            picker.sourceType = .camera
+        }
+        else {
+            picker.sourceType = .photoLibrary
+        }
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[.editedImage] as! UIImage
+        let size = CGSize(width: 250, height: 250)
+        let scaledImage = image.af_imageAspectScaled(toFill: size )
+        
+        profileImage.image = scaledImage
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func saveProfile(_ sender: Any) {
+    }
+    
     /*
     // MARK: - Navigation
 
