@@ -13,6 +13,7 @@
 		1CCA47DE245D08DA002201B6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA47DD245D08DA002201B6 /* ProfileViewController.swift */; };
 		1F42F468245D67E0002E9263 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F42F467245D67E0002E9263 /* WelcomeViewController.swift */; };
 		1F42F46A245F1F58002E9263 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F42F469245F1F58002E9263 /* EditProfileViewController.swift */; };
+		1F6B3C2A2463D67200D374D5 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6B3C292463D67200D374D5 /* UserService.swift */; };
 		5C9CF8B8F9412141F48DF6E1 /* Pods_SwapItTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 556AC1229B719D9C6F4CA6F6 /* Pods_SwapItTests.framework */; };
 		6D5DFEDC245B990D00024895 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D5DFEDB245B990D00024895 /* GoogleService-Info.plist */; };
 		6D74E164245BCEB90056D2D0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D74E163245BCEB90056D2D0 /* LoginViewController.swift */; };
@@ -57,6 +58,7 @@
 		1CCA47DD245D08DA002201B6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1F42F467245D67E0002E9263 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		1F42F469245F1F58002E9263 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		1F6B3C292463D67200D374D5 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		1F8ABEEAF80CF7377D110478 /* Pods-SwapIt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwapIt.release.xcconfig"; path = "Target Support Files/Pods-SwapIt/Pods-SwapIt.release.xcconfig"; sourceTree = "<group>"; };
 		2671782CEF4CAD2687F38CD9 /* Pods_SwapIt_SwapItUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwapIt_SwapItUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		556AC1229B719D9C6F4CA6F6 /* Pods_SwapItTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwapItTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,6 +198,7 @@
 				6D7E62822460FDBC005CB1EC /* MessagesViewController.swift */,
 				6D7E62842461002D005CB1EC /* newMessageCell.swift */,
 				6DE354752462176D00E742C2 /* ChatViewController.swift */,
+				1F6B3C292463D67200D374D5 /* UserService.swift */,
 			);
 			path = SwapIt;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				6D7E62852461002D005CB1EC /* newMessageCell.swift in Sources */,
 				1C4FD0CE245E5B5A00D056CD /* SwapperCell.swift in Sources */,
 				1C4FD0CC245E5AC400D056CD /* SwappersViewController.swift in Sources */,
+				1F6B3C2A2463D67200D374D5 /* UserService.swift in Sources */,
 				6D7E627F2460FD6F005CB1EC /* newMessagesViewController.swift in Sources */,
 				F41243172453B6EB00D83CD3 /* AppDelegate.swift in Sources */,
 				F40526E6245FAE24006660CA /* User.swift in Sources */,

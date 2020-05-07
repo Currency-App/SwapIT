@@ -28,11 +28,7 @@ class newMessagesViewController: UIViewController, UITableViewDelegate, UITableV
     func fetchUser() {
         Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
-                let user = User()
-                user.id = snapshot.key
-                user.firstName = dictionary["firstName"] as? String
-                user.lastName = dictionary["lastName"] as? String
-                user.email = dictionary["email"] as? String
+                let user = User(id: snapshot.key, firstName: (dictionary["firstName"] as? String)!, lastName: (dictionary["lastName"] as? String)!, email: (dictionary["email"] as? String)!)
                 self.users.append(user)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()

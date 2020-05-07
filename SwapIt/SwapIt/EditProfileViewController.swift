@@ -21,14 +21,13 @@ class EditProfileViewController: UIViewController, UIPickerViewDataSource, UIPic
     @IBOutlet weak var desiredText: UITextField!
     var selectedCurrency: String?
     var currencyType = ["USD", "EUR"]
-    var docRef: DocumentReference!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         createPickerView()
         dismissPickerView()
-        docRef = Firestore.firestore().document("profileInformation/profile")
-
         // Do any additional setup after loading the view.
     }
     
@@ -101,23 +100,27 @@ class EditProfileViewController: UIViewController, UIPickerViewDataSource, UIPic
     }
     
     @IBAction func saveProfile(_ sender: Any) {
-       
+        
+        
+        guard let profilename = nameText.text, !profilename.isEmpty else {return}
         guard let desiredC = desiredText.text, !desiredC.isEmpty else {return}
         guard let currentC = currentText.text, !currentC.isEmpty else {return}
-        guard let profilename = nameText.text, !profilename.isEmpty else {return}
         
-        let dataToSave: [String: Any] = ["profileName": profilename, "currentCurrency": currentC, "desiredCurrency": desiredC]
+        let ref = Database.database().reference().child("profile").childByAutoId()
+        let profileObject = [
+            "profilename": profilename,
+            "desiredCurrency": desiredC,
+            "currentCurrency": currentC
+        ] as [String: Any]
         
-        docRef.setData(dataToSave, completion: { (error) in
-            if let error = error {
-                print("There is an error: \(error.localizedDescription)") }
+        ref.setValue(nil, withCompletionBlock: { error, ref in
+            if error == nil {
+                self.dismiss(animated: true, completion: nil)
+            }
             else {
-                print("Data is saved")
-                self.navigationController?.popViewController(animated: true)
+                
             }
         })
- 
-        
     }
     
     @IBAction func backButton(_ sender: Any) {
