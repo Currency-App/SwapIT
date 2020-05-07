@@ -12,7 +12,7 @@ target 'SwapIt' do
   pod 'Firebase/Database'
   pod "AlamofireImage"
   pod 'Firebase/Firestore'
- pod 'FirebaseFirestoreSwift'
+  pod 'FirebaseFirestoreSwift'
  
 
   target 'SwapItTests' do
