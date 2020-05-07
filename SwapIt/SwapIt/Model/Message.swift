@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class Message: NSObject {
     var fromID: String?
     var toID: String?
     var text: String?
     var timeStamp: NSNumber?
+    
     
 }

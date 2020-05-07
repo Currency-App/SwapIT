@@ -219,7 +219,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Messages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPb-46-K8b">
-                                <rect key="frame" x="68" y="103" width="239" height="76"/>
+                                <rect key="frame" x="68" y="59" width="239" height="76"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="qPb-46-K8b" secondAttribute="height" multiplier="239:76" id="4Gk-WX-kJ7"/>
                                 </constraints>
@@ -304,6 +304,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="q6L-fM-wOQ" id="77W-QM-VaT"/>
+                        <segue destination="d7s-8A-UvC" kind="presentation" identifier="chatMessageView" modalPresentationStyle="fullScreen" id="5wM-Ir-BKz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="476-Bw-Alb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -410,7 +411,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="BKa-cP-bHF"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Cj2-bh-idy"/>
+                    <navigationItem key="navigationItem" id="Cj2-bh-idy">
+                        <barButtonItem key="leftBarButtonItem" title="Messages " id="Ux1-yn-LPE">
+                            <connections>
+                                <segue destination="w4z-d4-z2b" kind="presentation" modalPresentationStyle="fullScreen" id="9L2-Ub-FFc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="messageTextField" destination="I5a-iy-pVQ" id="nLC-Vq-bSj"/>
                     </connections>
@@ -991,8 +998,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="5wM-Ir-BKz"/>
+        <segue reference="9L2-Ub-FFc"/>
         <segue reference="2sQ-On-Std"/>
-        <segue reference="GFa-K7-CpE"/>
+        <segue reference="Asp-TM-oiJ"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="dollarsign.circle.fill" catalog="system" width="128" height="121"/>

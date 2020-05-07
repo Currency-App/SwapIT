@@ -59,7 +59,6 @@ class newMessagesViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
-    var messagesController: MessagesViewController?
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]

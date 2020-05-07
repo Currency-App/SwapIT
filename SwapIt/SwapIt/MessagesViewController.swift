@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import Firebase
 
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     switch (lhs, rhs) {
@@ -37,6 +38,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
     
     var messages = [Message]()
     var messageDictionary = [String: Message]()
+    var users = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +47,14 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 150
         //observeMessages()
-        observeUserMessages()
+        let user = Auth.auth().currentUser
+
+        if (user != nil) {
+            observeUserMessages()
+            
+        } else {
+            print("no user")
+        }
     }
     
     func observeUserMessages() {
@@ -136,7 +145,43 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
             cell.timeLabel.text = dateFormatter.string(from: timeStampDate as Date)
         }
         cell.messageLabel.text = message.text
+       
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let message = messages[indexPath.row]
+        let chatPartnerID: String?
+        if message.fromID == Auth.auth().currentUser?.uid {
+            chatPartnerID = message.toID
+        }
+        else {
+            chatPartnerID = message.fromID
+            var ref: DatabaseReference!
+               ref = Database.database().reference().child("users").child(chatPartnerID!)
+               ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let dictionary = snapshot.value as? [String: AnyObject] else {
+                    return
+                }
+                let user = User()
+                user.id = chatPartnerID
+                user.firstName = dictionary["firstName"] as? String
+                user.lastName = dictionary["lastName"] as? String
+                user.email = dictionary["email"] as? String
+               }, withCancel: nil)
+       }
+        //self.performSegue(withIdentifier: "chatMessageView", sender: message)
+
+
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         if segue.identifier == "chatMessageView" {
+                   let nav = segue.destination as! UINavigationController
+                   let svc = nav.topViewController as! ChatViewController
+                    svc.user = sender as? User
+               }
     }
     
     @IBAction func newMessagesAction(_ sender: Any) {
