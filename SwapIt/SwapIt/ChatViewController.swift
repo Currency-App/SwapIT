@@ -13,12 +13,13 @@ import FirebaseAuth
 class ChatViewController: UIViewController {
 
     @IBOutlet weak var messageTextField: UITextField!
-    
-    @IBOutlet weak var nameLabel: UILabel!
-    
+        
     var user: User?
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        //nameLabel.text = user?.firstName
+        navigationItem.title = user?.firstName
         // Do any additional setup after loading the view.
     }
     
@@ -29,9 +30,23 @@ class ChatViewController: UIViewController {
         let childRef = ref.childByAutoId()
         let toID = user?.id!
         let fromID = Auth.auth().currentUser?.uid
-        let values = ["text": messageTextField.text!, "toID": toID, "fromID": fromID]
-        childRef.updateChildValues(values)
-    
+        let timeStamp = NSDate().timeIntervalSince1970
+        let values = ["text": messageTextField.text!, "toID": toID, "fromID": fromID, "timeStamp": timeStamp] as [String : Any]
+        //childRef.updateChildValues(values)
+        childRef.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error ?? "")
+                return
+            }
+            
+            guard let messageId = childRef.key else { return }
+            
+            let userMessagesRef = Database.database().reference().child("user-messages").child(fromID!).child(messageId)
+            userMessagesRef.setValue(1)
+            
+            let recipientUserMessagesRef = Database.database().reference().child("user-messages").child(toID!).child(messageId)
+            recipientUserMessagesRef.setValue(1)
+        }
     }
     
 

@@ -19,13 +19,15 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    var messageContoller = MessagesViewController()
+    
     @IBAction func login(_ sender: Any) {
         let Email = email.text!
         let Password = password.text!
         Auth.auth().signIn(withEmail: Email, password: Password) { (user, error) in
            if error == nil{
              self.performSegue(withIdentifier: "loginSuccess", sender: self)
-                          }
+           }
             else{
              let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
              let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)

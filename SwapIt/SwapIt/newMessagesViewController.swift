@@ -55,13 +55,19 @@ class newMessagesViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
-    var messagesController: MessagesViewController?
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
-        self.messagesController?.getUser(user: user)
-        self.performSegue(withIdentifier: "chatView", sender: nil)
+        self.performSegue(withIdentifier: "chatView", sender: user)
             
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "chatView" {
+            let nav = segue.destination as! UINavigationController
+            let svc = nav.topViewController as! ChatViewController
+            svc.user = sender as? User
+        }
     }
 
 
