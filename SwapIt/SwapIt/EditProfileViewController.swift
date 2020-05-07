@@ -8,8 +8,9 @@
 
 import UIKit
 import AlamofireImage
-import FirebaseFirestore
+import FirebaseStorage
 import FirebaseDatabase
+import FirebaseAuth
 
 
 class EditProfileViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate{
@@ -21,7 +22,7 @@ class EditProfileViewController: UIViewController, UIPickerViewDataSource, UIPic
     @IBOutlet weak var desiredText: UITextField!
     var selectedCurrency: String?
     var currencyType = ["USD", "EUR"]
-    
+    var iURL: String?
     
     
     override func viewDidLoad() {
@@ -95,32 +96,57 @@ class EditProfileViewController: UIViewController, UIPickerViewDataSource, UIPic
         let scaledImage = image.af_imageAspectScaled(toFill: size )
         
         profileImage.image = scaledImage
-        
         dismiss(animated: true, completion: nil)
+        
+        var data = Data()
+        data = profileImage.image!.jpegData(compressionQuality: 0.8)!
+        
+        let imageRef = Storage.storage().reference().child("images/" + randomString(length: 20))
+        let uploadTask = imageRef.putData(data, metadata: nil) {(metadata, error) in
+            guard let metadata = metadata else {return}
+            let size = metadata.size
+            imageRef.downloadURL{ (url, error) in
+                guard let downloadURL = url else {return}
+                self.iURL = url?.absoluteString
+                print(self.iURL! as String)
+            }
+        }
+    }
+    
+    func randomString(length: Int) -> String {
+      let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+      return String((0..<length).map{ _ in letters.randomElement()! })
     }
     
     @IBAction func saveProfile(_ sender: Any) {
         
+        guard let userProfile = UserService.currentUserProfile else {return}
         
         guard let profilename = nameText.text, !profilename.isEmpty else {return}
         guard let desiredC = desiredText.text, !desiredC.isEmpty else {return}
         guard let currentC = currentText.text, !currentC.isEmpty else {return}
+        guard let profileImage = iURL, !profileImage.isEmpty else {return}
         
-        let ref = Database.database().reference().child("profile").childByAutoId()
+        let profileRef = Database.database().reference().child("profile").childByAutoId()
         let profileObject = [
+            "author": [
+                "userID": userProfile.id
+            ],
             "profilename": profilename,
             "desiredCurrency": desiredC,
-            "currentCurrency": currentC
+            "currentCurrency": currentC,
+            "profileImage": profileImage
         ] as [String: Any]
         
-        ref.setValue(nil, withCompletionBlock: { error, ref in
-            if error == nil {
-                self.dismiss(animated: true, completion: nil)
-            }
-            else {
-                
-            }
-        })
+        if Auth.auth().currentUser?.uid != nil
+        {
+            profileRef.updateChildValues(profileObject)
+        }
+        else
+        {
+            profileRef.setValue(profileObject)
+        }
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func backButton(_ sender: Any) {

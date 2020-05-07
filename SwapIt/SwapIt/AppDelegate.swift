@@ -19,6 +19,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     FirebaseApp.configure()
     
+    let authListner = Auth.auth().addStateDidChangeListener { auth, user in
+        if user != nil
+        {
+            UserService.observeUserProfile(user!.uid) {
+                userProfile in
+                UserService.currentUserProfile = userProfile
+            }
+        }
+        else
+        {
+            UserService.currentUserProfile = nil
+        }
+    }
+    
     return true
   }
 
