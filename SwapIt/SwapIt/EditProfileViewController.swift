@@ -8,21 +8,26 @@
 
 import UIKit
 import AlamofireImage
+import FirebaseFirestore
+import FirebaseDatabase
 
 
 class EditProfileViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate{
     
 
+    @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var currentText: UITextField!
     @IBOutlet weak var desiredText: UITextField!
     var selectedCurrency: String?
     var currencyType = ["USD", "EUR"]
+    var docRef: DocumentReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         createPickerView()
         dismissPickerView()
+        docRef = Firestore.firestore().document("profileInformation/profile")
 
         // Do any additional setup after loading the view.
     }
@@ -38,14 +43,12 @@ class EditProfileViewController: UIViewController, UIPickerViewDataSource, UIPic
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return currencyType[row]
     }
-    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedCurrency = currencyType[row]
         currentText.text = selectedCurrency
         desiredText.text = selectedCurrency
         
     }
-    
     func createPickerView()
     {
         let pickerView = UIPickerView()
@@ -53,10 +56,7 @@ class EditProfileViewController: UIViewController, UIPickerViewDataSource, UIPic
         
         currentText.inputView = pickerView
         desiredText.inputView = pickerView
-        
-        
     }
-    
     func dismissPickerView()
     {
         let toolBar = UIToolbar()
@@ -101,8 +101,28 @@ class EditProfileViewController: UIViewController, UIPickerViewDataSource, UIPic
     }
     
     @IBAction func saveProfile(_ sender: Any) {
+       
+        guard let desiredC = desiredText.text, !desiredC.isEmpty else {return}
+        guard let currentC = currentText.text, !currentC.isEmpty else {return}
+        guard let profilename = nameText.text, !profilename.isEmpty else {return}
+        
+        let dataToSave: [String: Any] = ["profileName": profilename, "currentCurrency": currentC, "desiredCurrency": desiredC]
+        
+        docRef.setData(dataToSave, completion: { (error) in
+            if let error = error {
+                print("There is an error: \(error.localizedDescription)") }
+            else {
+                print("Data is saved")
+                self.navigationController?.popViewController(animated: true)
+            }
+        })
+ 
+        
     }
     
+    @IBAction func backButton(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     /*
     // MARK: - Navigation
 
